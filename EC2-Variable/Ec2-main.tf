@@ -38,6 +38,7 @@ resource "aws_security_group" "web_sg" {
   }
 }
 
+
 resource "aws_instance" "webserver" {
 
   ami                    = var.ami_id
