@@ -1,6 +1,6 @@
 resource "aws_instance" "my_instance" {
 
-  ami           = "ami-0b6c6ebed2801a5cb"
+  ami           = "ami-0b6d9d3d33ba97d99"
   instance_type = "t3.micro"
 
   key_name = aws_key_pair.my_key.key_name
