@@ -14,8 +14,15 @@ variable "instance_type" {
 }
 
 variable "key_name" {
-  description = "AWS Key Pair Name"
+  description = "Name of the AWS Key Pair"
   type        = string
+  default     = "terra-key-ec2"
+}
+
+variable "public_key_path" {
+  description = "Path to the public key file"
+  type        = string
+  default     = "terra-key-ec2.pub"
 }
 
 variable "instance_name" {
