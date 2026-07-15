@@ -43,8 +43,8 @@ resource "aws_instance" "webserver" {
 
   ami                    = var.ami_id
   instance_type          = var.instance_type
-  key_name               = var.key_name
-  public_key             = file(var.public_key_path)
+  key_name               = aws_key_pair.my_key.key_name
+ 
   vpc_security_group_ids = [aws_security_group.web_sg.id]
 
   user_data = file("userdata.sh")
