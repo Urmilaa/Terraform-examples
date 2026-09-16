@@ -12,7 +12,7 @@ pipeline {
 
         stage('Checkout') {
             steps {
-                dir('terraform/Ci-CD/Ci-CD') {
+                dir('Ci-CD') {
                     git branch: 'main', url: 'https://github.com/Urmilaa/Terraform-examples.git'
                 }
             }
@@ -24,7 +24,7 @@ pipeline {
                     $class: 'AmazonWebServicesCredentialsBinding',
                     credentialsId: 'aws-creds'   
                 ]]) {
-                    dir('terraform/Ci-CD/Ci-CD') {
+                    dir('Ci-CD') {
                         sh 'aws sts get-caller-identity'
                         sh 'terraform init'
                     }
@@ -33,7 +33,7 @@ pipeline {
         }
           stage('Terraform Validate') {
             steps {
-                dir('terraform/Ci-CD/Ci-CD') {
+                dir('Ci-CD') {
                 sh 'terraform validate'
                 }
             }
@@ -44,7 +44,7 @@ pipeline {
                     $class: 'AmazonWebServicesCredentialsBinding',
                     credentialsId: 'aws-creds'
                 ]]) {
-                    dir('terraform/Ci-CD/Ci-CD') {
+                    dir('Ci-CD') {
                         sh 'terraform plan -out=tfplan'
                         sh 'terraform show -no-color tfplan > tfplan.txt'
                     }
@@ -60,7 +60,7 @@ pipeline {
 
             steps {
                 script {
-                    def plan = readFile 'terraform/Ci-CD/Ci-CD/tfplan.txt'
+                    def plan = readFile 'Ci-CD/tfplan.txt'
 
                     input message: "Do you want to apply the plan?",
                     parameters: [
@@ -76,7 +76,7 @@ pipeline {
                     $class: 'AmazonWebServicesCredentialsBinding',
                     credentialsId: 'aws-creds'
                 ]]) {
-                    dir('terraform/Ci-CD/Ci-CD') {
+                    dir('Ci-CD') {
                         sh 'terraform apply -input=false tfplan'
                     }
                 }
