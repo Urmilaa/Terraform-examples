@@ -13,7 +13,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 dir('terraform') {
-                    git branch: 'main', url: 'https://github.com/Urmilaa/terraform-CI-CD.git'
+                    git branch: 'main', url: 'https://github.com/Urmilaa/Terraform-examples.git'
                 }
             }
         }
